@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1220" />
+  <meta name="description" content="Group Money — SA stokvel/burial/choir shared ledger demo. Not a bank. Sample data only." />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Group Money · Shared Ledger</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%238b5cf6'/%3E%3Ctext x='16' y='22' text-anchor='middle' font-size='12' font-family='sans-serif' font-weight='800' fill='%231e0b3a'%3EGM%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <div class="app" id="app">
+    <header class="header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">GM</div>
+        <div class="brand-text">
+          <h1>Group Money</h1>
+          <p>Kopano Stokvel · Bloemfontein</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button type="button" class="icon-btn" id="btn-reset" title="Reset demo" aria-label="Reset demo">↺</button>
+        <button type="button" class="icon-btn" id="btn-info" title="About" aria-label="About">ℹ</button>
+      </div>
+    </header>
+
+    <main class="main" id="main">
+      <section class="view active" id="view-today" data-view="today">
+        <div class="view-title">
+          <div>
+            <h2>Today</h2>
+            <p class="sub">Books due · <span id="today-date"></span></p>
+          </div>
+          <span class="badge teal" id="today-count"><span class="dot"></span> 0 due</span>
+        </div>
+
+        <div class="cta-card">
+          <h3>Related pack</h3>
+          <p>This app is the <strong>live books demo</strong>. For printable stokvel OS templates, see the related download on Gumroad.</p>
+          <a class="btn btn-primary btn-block" href="https://stofficial.gumroad.com/l/ydbgne" target="_blank" rel="noopener noreferrer">Stokvel OS pack ↗</a>
+        </div>
+
+        <div class="grid grid-2 mb-12">
+          <div class="card kpi">
+            <div class="stat-value teal" id="kpi-pot">R0</div>
+            <div class="stat-label">Pot (demo)</div>
+          </div>
+          <div class="card kpi">
+            <div class="stat-value amber" id="kpi-late">0</div>
+            <div class="stat-label">Late this period</div>
+          </div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Due processes</h3><span class="badge muted">tap to run</span></div>
+          <div class="list" id="today-queue"></div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Next reminders</h3><span class="badge info">auto</span></div>
+          <div id="reminder-panel"></div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Recent completions</h3><span class="badge muted">history</span></div>
+          <div id="history-panel"></div>
+        </div>
+        <div class="btn-row mb-12">
+          <button type="button" class="btn btn-ghost btn-block" id="btn-add-process-today">+ Add recurring process</button>
+        </div>
+        <p class="disclaimer">NOT a bank · NOT an NCR credit provider · NOT financial advice · Demo sample data on a single device · App prepares books — humans Approve payouts.</p>
+      </section>
+
+      <section class="view" id="view-members" data-view="members">
+        <div class="view-title">
+          <div>
+            <h2>Members</h2>
+            <p class="sub">Multi-member ledger feel</p>
+          </div>
+        </div>
+        <div class="list" id="members-list"></div>
+        <p class="disclaimer">Demo roster · Single-device demo (not multi-login).</p>
+      </section>
+
+      <section class="view" id="view-ledger" data-view="ledger">
+        <div class="view-title">
+          <div>
+            <h2>Ledger</h2>
+            <p class="sub">Contributions · loans · payouts</p>
+          </div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Period</h3><span class="badge teal" id="period-badge">—</span></div>
+          <div id="period-meta" style="font-size:13px;color:var(--text-dim);margin-bottom:10px"></div>
+          <div class="progress"><span id="period-bar" style="width:0%"></span></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Entries</h3><span class="badge muted">ZAR</span></div>
+          <div id="ledger-list"></div>
+        </div>
+        <p class="disclaimer">NOT a bank ledger · Demo only.</p>
+      </section>
+
+      <section class="view" id="view-cycles" data-view="cycles">
+        <div class="view-title">
+          <div>
+            <h2>Cycles / payout</h2>
+            <p class="sub">Rotating · Approve</p>
+          </div>
+        </div>
+        <div class="approve-card mb-12" id="payout-approve">
+          <h3>Approve payout prep</h3>
+          <p id="payout-copy">Next payout sheet is ready for review. App prepared figures — committee Approves release.</p>
+          <div class="btn-row">
+            <button type="button" class="btn btn-ghost" id="btn-payout-later">Later</button>
+            <button type="button" class="btn btn-amber" id="btn-payout-approve">Approve sheet</button>
+          </div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Payout sheet</h3><span class="badge muted">draft</span></div>
+          <div id="payout-sheet"></div>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Cycle history</h3></div>
+          <div id="cycle-history"></div>
+        </div>
+        <p class="disclaimer">You Approve payouts · App does not move money.</p>
+      </section>
+
+      <section class="view" id="view-more" data-view="more">
+        <div class="view-title"><div><h2>More</h2><p class="sub">Modules · settings</p></div></div>
+        <div class="more-grid" id="more-grid"></div>
+      </section>
+
+      <section class="view" id="view-loans" data-view="loans">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Loans / advances</h2><p class="sub">Log only</p></div></div>
+        <div class="list" id="loans-list"></div>
+        <p class="disclaimer">NOT NCR credit · Log for group transparency only.</p>
+      </section>
+
+      <section class="view" id="view-disputes" data-view="disputes">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Disputes</h2><p class="sub">Open items</p></div></div>
+        <div class="list" id="disputes-list"></div>
+      </section>
+
+      <section class="view" id="view-meeting" data-view="meeting">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Meeting pack</h2><p class="sub">Export stub</p></div></div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>This month pack</h3><span class="badge info">stub</span></div>
+          <p style="font-size:13px;color:var(--text-dim);margin-bottom:12px">Agenda, attendance, contribution roll, payout sheet, disputes — demo export builds a text pack in-browser (not a bank statement).</p>
+          <button type="button" class="btn btn-primary btn-block" id="btn-export-pack">Export meeting pack</button>
+          <pre id="export-out" style="display:none;margin-top:12px;font-size:11px;white-space:pre-wrap;background:var(--navy);padding:12px;border-radius:10px;border:1px solid var(--border);max-height:240px;overflow:auto"></pre>
+        </div>
+        <p class="disclaimer">Export stub only · NOT a bank statement.</p>
+      </section>
+
+      <section class="view" id="view-settings" data-view="settings">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title"><div><h2>Settings</h2><p class="sub">Modules · processes</p></div></div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Module toggles</h3><span class="badge teal">adaptable</span></div>
+          <div class="toggle-list" id="module-toggles"></div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Recurring processes</h3><span class="badge teal">wizard</span></div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Record contribution, attest paid, period close, payout prep. Add member payment links.</p>
+          <div class="list" id="process-list"></div>
+          <button type="button" class="btn btn-primary btn-block" id="btn-add-process" style="margin-top:10px">+ Add process</button>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Completion history</h3></div>
+          <div id="history-list-full"></div>
+        </div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>Related download</h3></div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Live books are in this app. Printable Stokvel OS pack:</p>
+          <a class="btn btn-ghost btn-block" href="https://stofficial.gumroad.com/l/ydbgne" target="_blank" rel="noopener noreferrer">Open Gumroad pack ↗</a>
+        </div>
+        <div class="card">
+          <div class="card-head"><h3>Demo</h3></div>
+          <button type="button" class="btn btn-danger btn-block" id="btn-reset-2">Reset all demo data</button>
+        </div>
+        <p class="disclaimer">localStorage key group-money-v1 · NOT a bank.</p>
+      </section>
+    </main>
+
+    <nav class="nav" id="bottom-nav" aria-label="Primary">
+      <button type="button" class="active" data-nav="today"><span class="nav-ico" aria-hidden="true">◎</span>Today</button>
+      <button type="button" data-nav="members" data-mod="members"><span class="nav-ico" aria-hidden="true">👥</span>Members</button>
+      <button type="button" data-nav="ledger" data-mod="ledger"><span class="nav-ico" aria-hidden="true">📒</span>Ledger</button>
+      <button type="button" data-nav="cycles" data-mod="cycles"><span class="nav-ico" aria-hidden="true">↻</span>Cycles</button>
+      <button type="button" data-nav="more"><span class="nav-ico" aria-hidden="true">☰</span>More</button>
+    </nav>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="modal-backdrop" id="modal" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h3 id="modal-title">About</h3>
+      <div id="modal-body"></div>
+      <button type="button" class="btn btn-primary btn-block" id="modal-close" style="margin-top:12px">Close</button>
+    </div>
+  </div>
+
+  <div class="pr-overlay" id="process-runner" aria-hidden="true">
+    <div class="pr-sheet" role="dialog" aria-modal="true" aria-labelledby="pr-title">
+      <div class="pr-head">
+        <button type="button" class="icon-btn" id="pr-close" aria-label="Close wizard">✕</button>
+        <h3 id="pr-title">Process</h3>
+        <span class="badge muted" id="pr-badge">1/1</span>
+      </div>
+      <div class="pr-stepper" id="pr-stepper" aria-hidden="true"></div>
+      <div class="pr-body" id="pr-body"></div>
+      <div class="pr-actions" id="pr-actions"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
