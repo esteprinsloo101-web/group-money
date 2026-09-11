@@ -185,6 +185,29 @@
         </div>
         <p class="disclaimer">localStorage key group-money-v1 · NOT a bank.</p>
       </section>
+    
+      <section class="view" id="view-science" data-view="science">
+        <button type="button" class="back-link" data-nav="more">← More</button>
+        <div class="view-title">
+          <div>
+            <h2>Science Desk</h2>
+            <p class="sub">Weekly improve tips for attest, period close, payout discipline.</p>
+          </div>
+          <span class="badge teal">weekly</span>
+        </div>
+        <div class="science-banner">
+          <h3>Science Desk · Meeting pack from books</h3>
+          <p>Improve this week with small, honest experiments. Methods and limits shown on every tip.</p>
+        </div>
+        <div id="science-tips"></div>
+        <div class="card mb-12">
+          <div class="card-head"><h3>R89-style methods (bundled later)</h3><span class="badge muted">R89-class</span></div>
+          <p style="font-size:15px;color:var(--text-dim);margin-bottom:10px">Meeting-pack coach planned. AEGIS Science Desk shows paid methods pattern.</p>
+          <a class="btn btn-ghost btn-block" href="https://esteprinsloo101-web.github.io/aegis-floodwatch/desk.html" target="_blank" rel="noopener">AEGIS Science Desk pattern</a>
+        </div>
+        <p class="disclaimer">Not financial, NCR, or legal advice. Group Money helps stokvel/society ops — treasurers still Approve money moves.</p>
+      </section>
+
     </main>
 
     <nav class="nav" id="bottom-nav" aria-label="Primary">
@@ -202,6 +225,33 @@
       <h3 id="modal-title">About</h3>
       <div id="modal-body"></div>
       <button type="button" class="btn btn-primary btn-block" id="modal-close" style="margin-top:12px">Close</button>
+    </div>
+  </div>
+
+  
+  <div class="onboard-overlay" id="onboard" aria-hidden="true">
+    <div class="onboard-sheet" role="dialog" aria-modal="true" aria-labelledby="onboard-title">
+      <h2 id="onboard-title">Where &amp; what you run</h2>
+      <p class="lead">Group Money: city/region + purpose so we show the right modules. You can change this later in Settings.</p>
+      <div class="form-row">
+        <label for="ob-city">City / region</label>
+        <input type="text" id="ob-city" placeholder="e.g. Bloemfontein, Free State" autocomplete="address-level2" />
+      </div>
+      <div class="form-row">
+        <label for="ob-purpose">What I run</label>
+        <select id="ob-purpose">
+          <option value="">Choose…</option>
+          <option value="household">Household / family</option>
+          <option value="farm">Farm / smallholding</option>
+          <option value="trade">Trade / job work</option>
+          <option value="rentals">Rentals / units</option>
+          <option value="stokvel">Stokvel / society money</option>
+          <option value="flood">Flood / hazard screen</option>
+          <option value="decisions">Decisions / judgment</option>
+        </select>
+      </div>
+      <button type="button" class="btn btn-primary btn-block" id="ob-save">Save &amp; continue</button>
+      <p class="disclaimer" style="margin-top:12px">Stored on this device only · Not advice</p>
     </div>
   </div>
 

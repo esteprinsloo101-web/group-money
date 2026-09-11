@@ -46,3 +46,6 @@ Storage key: `group-money-v1`
 ## Disclaimer
 
 Demo only. **NOT** a bank / NCR credit provider / financial advice. Does not move money or issue statements that replace your bank.
+
+## Update 2026-09-11
+Platform bar 2026-09-11: Science Desk meeting-pack tips, elderly UI, location+purpose onboarding.

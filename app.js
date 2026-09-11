@@ -5,7 +5,92 @@
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "group-money-v1";
+  const STORAGE_KEY = "group-money-v4";
+
+  /* PLATFORM_BAR_2026_09_11 */
+  const SCIENCE_TIPS = [
+  {
+    "h": "Attest before meeting",
+    "body": "Close ledger attest 48h before meeting. Note disputes raised early vs in-room.",
+    "method": "Method: pre-read window \u00b7 Limit: late deposits still land"
+  },
+  {
+    "h": "Payout checklist",
+    "body": "Run payout wizard with bank link open. Tick only after EFT proof saved.",
+    "method": "Method: dual control stub \u00b7 Limit: not NCR / banking advice"
+  },
+  {
+    "h": "Dispute aging",
+    "body": "List open disputes older than 14 days. Resolve or escalate one this week.",
+    "method": "Method: aging triage \u00b7 Limit: member dynamics"
+  }
+];
+  const PURPOSE_MODULE_PRESETS = {
+  "stokvel": {
+    "members": true,
+    "ledger": true,
+    "cycles": true,
+    "loans": true,
+    "disputes": true,
+    "meeting": true,
+    "science": true
+  },
+  "household": {
+    "members": true,
+    "ledger": true,
+    "cycles": false,
+    "loans": false,
+    "disputes": false,
+    "meeting": true,
+    "science": true
+  },
+  "farm": {
+    "members": true,
+    "ledger": true,
+    "cycles": true,
+    "loans": true,
+    "disputes": true,
+    "meeting": true,
+    "science": true
+  },
+  "trade": {
+    "members": true,
+    "ledger": true,
+    "cycles": true,
+    "loans": false,
+    "disputes": true,
+    "meeting": true,
+    "science": true
+  },
+  "rentals": {
+    "members": true,
+    "ledger": true,
+    "cycles": true,
+    "loans": false,
+    "disputes": true,
+    "meeting": true,
+    "science": true
+  },
+  "flood": {
+    "members": true,
+    "ledger": false,
+    "cycles": false,
+    "loans": false,
+    "disputes": false,
+    "meeting": true,
+    "science": true
+  },
+  "decisions": {
+    "members": true,
+    "ledger": true,
+    "cycles": true,
+    "loans": false,
+    "disputes": true,
+    "meeting": true,
+    "science": true
+  }
+};
+
   const TZ = "Africa/Johannesburg";
   const GUMROAD = "https://stofficial.gumroad.com/l/ydbgne";
 
@@ -73,12 +158,14 @@
 
   const DEFAULT_MODULES = {
     members: true, ledger: true, cycles: true, loans: true, disputes: true, meeting: true,
+    science: true,
   };
 
   function seed() {
     const today = startOfDay(new Date());
     return {
       modules: { ...DEFAULT_MODULES },
+      profile: { onboarded: false, city: "", purpose: "", updatedAt: null },
       group: { name: "Kopano Stokvel", city: "Bloemfontein", type: "Monthly savings · rotating payout", contribution: 500 },
       period: {
         label: "September 2026",
@@ -202,6 +289,7 @@
       if (!raw) return seed();
       const data = JSON.parse(raw);
       data.modules = { ...DEFAULT_MODULES, ...(data.modules || {}) };
+      if (!data.profile) data.profile = { onboarded: false, city: "", purpose: "", updatedAt: null };
       if (!Array.isArray(data.processes) || !data.processes.length) data.processes = seedProcesses(startOfDay(new Date()));
       if (!Array.isArray(data.history)) data.history = [];
       return data;
@@ -354,6 +442,7 @@
       { id: "loans", mod: "loans", icon: "💸", title: "Loans / advances", meta: "Log only · not NCR" },
       { id: "disputes", mod: "disputes", icon: "⚠", title: "Disputes", meta: "Open items" },
       { id: "meeting", mod: "meeting", icon: "📋", title: "Meeting pack", meta: "Export stub" },
+      { id: "science", mod: "science", icon: "🔬", title: "Science Desk", meta: "Weekly tips · methods" },
       { id: "settings", mod: null, icon: "⚙", title: "Settings", meta: "Modules · processes" },
     ];
     $("#more-grid").innerHTML = items.filter((i) => !i.mod || state.modules[i.mod]).map((i) => `
@@ -389,7 +478,24 @@
   }
 
   function renderSettings() {
-    const labels = { members: "Members", ledger: "Ledger / period", cycles: "Cycles / payout", loans: "Loans / advances", disputes: "Disputes", meeting: "Meeting pack" };
+    const settingsView = document.getElementById("view-settings");
+    if (settingsView && !document.getElementById("profile-card")) {
+      const card = document.createElement("div");
+      card.className = "card mb-12";
+      card.id = "profile-card";
+      card.innerHTML = '<div class="card-head"><h3>Location &amp; purpose</h3><span class="badge teal">adapt</span></div><p id="profile-summary" style="font-size:15px;color:var(--text-dim);margin-bottom:10px"></p><button type="button" class="btn btn-ghost btn-block" id="btn-redo-onboard">Change city / purpose</button>';
+      const first = settingsView.querySelector(".card, .toggle-list, #module-toggles");
+      if (first) {
+        const wrap = first.closest(".card") || first;
+        settingsView.insertBefore(card, wrap);
+      } else settingsView.insertBefore(card, settingsView.firstChild);
+      document.getElementById("btn-redo-onboard").addEventListener("click", function () { state.profile.onboarded = false; save(); showOnboarding(); });
+    }
+    const ps = document.getElementById("profile-summary");
+    if (ps && state.profile) ps.textContent = (state.profile.city || "—") + " · " + (state.profile.purpose || "—");
+
+    const labels = { members: "Members", ledger: "Ledger / period", cycles: "Cycles / payout", loans: "Loans / advances", disputes: "Disputes", meeting: "Meeting pack", science: "Science Desk"
+    };
     $("#module-toggles").innerHTML = Object.keys(DEFAULT_MODULES).map((k) => `
       <label class="toggle-row">
         <div><div class="t-label">${labels[k] || k}</div><div class="t-meta">Show in nav / More</div></div>
@@ -408,6 +514,7 @@
 
   function render() {
     renderNavVisibility();
+    if (currentView === "science") renderScience();
     renderToday();
     if (state.modules.members) renderMembers();
     if (state.modules.ledger) renderLedger();
@@ -616,6 +723,71 @@
     toast("Meeting pack exported (stub)");
   }
 
+  
+  /* PLATFORM_BAR_2026_09_11 helpers */
+  function renderScience() {
+    const root = document.getElementById("science-tips");
+    if (!root) return;
+    root.innerHTML = SCIENCE_TIPS.map((t) =>
+      '<div class="science-tip"><h4>' + esc(t.h) + '</h4><p>' + esc(t.body) + '</p><div class="method">' + esc(t.method) + '</div></div>'
+    ).join("");
+  }
+
+  function applyPurposeModules(purpose) {
+    const preset = PURPOSE_MODULE_PRESETS[purpose];
+    if (!preset || !state.modules) return;
+    Object.keys(state.modules).forEach((k) => {
+      if (Object.prototype.hasOwnProperty.call(preset, k)) state.modules[k] = !!preset[k];
+    });
+  }
+
+  function updateBrandLocation() {
+    const sub = document.querySelector(".brand-text p");
+    if (!sub || !state.profile) return;
+    const city = state.profile.city || "";
+    const purpose = state.profile.purpose || "";
+    if (city || purpose) sub.textContent = [city, purpose].filter(Boolean).join(" · ");
+  }
+
+  function showOnboarding() {
+    const el = document.getElementById("onboard");
+    if (!el) return;
+    const city = document.getElementById("ob-city");
+    const purpose = document.getElementById("ob-purpose");
+    if (city && state.profile) city.value = state.profile.city || "Bloemfontein";
+    if (purpose && state.profile) purpose.value = state.profile.purpose || "stokvel";
+    el.classList.add("open");
+    el.setAttribute("aria-hidden", "false");
+  }
+
+  function hideOnboarding() {
+    const el = document.getElementById("onboard");
+    if (!el) return;
+    el.classList.remove("open");
+    el.setAttribute("aria-hidden", "true");
+  }
+
+  function completeOnboarding() {
+    const city = (document.getElementById("ob-city") && document.getElementById("ob-city").value || "").trim();
+    const purpose = (document.getElementById("ob-purpose") && document.getElementById("ob-purpose").value) || "";
+    if (!city) { toast("Enter your city / region"); return; }
+    if (!purpose) { toast("Choose what you run"); return; }
+    state.profile = { onboarded: true, city: city, purpose: purpose, updatedAt: new Date().toISOString() };
+    applyPurposeModules(purpose);
+    save();
+    hideOnboarding();
+    updateBrandLocation();
+    render();
+    toast("Saved · modules adapted");
+  }
+
+  function maybeOnboard() {
+    if (!state.profile) state.profile = { onboarded: false, city: "", purpose: "", updatedAt: null };
+    if (!state.profile.onboarded) showOnboarding();
+    else updateBrandLocation();
+  }
+
+
   function resetDemo() {
     if (!confirm("Reset all Group Money demo data?")) return;
     state = seed(); save(); showView("today"); toast("Demo reset");
@@ -649,5 +821,7 @@
     state.payoutApproved = true; save(); render(); toast("Payout sheet Approved (demo)");
   });
   $("#btn-payout-later")?.addEventListener("click", () => toast("Kept for Cycles"));
+  document.getElementById("ob-save") && document.getElementById("ob-save").addEventListener("click", completeOnboarding);
+  maybeOnboard();
   render();
 })();
