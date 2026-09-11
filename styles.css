@@ -846,3 +846,97 @@ body {
 }
 .kid-card h4, .policy-card h4, .retire-card h4 { font-size: 17px; margin-bottom: 4px; }
 .kid-card .meta, .policy-card .meta, .retire-card .meta { font-size: 14px; color: var(--muted); margin-bottom: 8px; }
+
+/* ── PWA install + reminders/backup 2026-09-11 ── */
+.install-banner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 12px 10px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.22), rgba(56,189,248,0.08));
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+.install-banner.hidden { display: none !important; }
+.install-banner-body {
+  flex: 1 1 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.install-banner-body strong {
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 700;
+}
+.install-banner-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.reminder-item.due-now {
+  border-left: 3px solid var(--accent-bright, #a78bfa);
+  padding-left: 10px;
+}
+.reminder-item .r-src.quiet {
+  color: var(--warn, #fbbf24);
+}
+button.reminder-item {
+  display: flex;
+  gap: 10px;
+  padding: 10px 0;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+  width: 100%;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+}
+button.reminder-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.loop-track {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.loop-step {
+  flex: 1 1 90px;
+  min-width: 88px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--navy, #0b1220);
+}
+.loop-step .ls-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.loop-step .ls-state {
+  font-size: 15px;
+  font-weight: 700;
+  margin-top: 4px;
+}
+.loop-step.done {
+  border-color: rgba(45, 212, 191, 0.45);
+  background: rgba(20, 184, 166, 0.12);
+}
+.loop-step.done .ls-state { color: var(--accent-bright, #2dd4bf); }
+.loop-step.open {
+  border-color: rgba(251, 191, 36, 0.4);
+  background: rgba(251, 191, 36, 0.08);
+}
+.loop-step.open .ls-state { color: var(--warn, #fbbf24); }
+.loop-step.blocked {
+  opacity: 0.72;
+}
+.loop-step.blocked .ls-state { color: var(--muted); }
