@@ -757,7 +757,7 @@ ul, ol { list-style: none; }
 .ledger-amt.neg { color: var(--red); font-weight: 700; }
 
 
-/* ── Este platform bar 2026-09-11: elderly-simple + Science Desk + onboarding ── */
+/* ── Este platform bar 2026-09-11: elderly-simple + onboarding ── */
 :root {
   --text: #f8fafc;
   --text-dim: #e2e8f0;

@@ -6,25 +6,6 @@
   "use strict";
 
   const STORAGE_KEY = "group-money-v4";
-
-  /* PLATFORM_BAR_2026_09_11 */
-  const SCIENCE_TIPS = [
-  {
-    "h": "Attest → close gate",
-    "body": "Run Attest ProcessRunner 48h before the meeting. Period close stays gated until attest locks.",
-    "method": "Method: ordered ProcessRunner loop · Limit: late deposits still land"
-  },
-  {
-    "h": "Close unlocks Approve",
-    "body": "Only after period close should payout Approve fire. Keep bank link open; humans still Approve.",
-    "method": "Method: dual-control ProcessRunner · Limit: not NCR / banking advice"
-  },
-  {
-    "h": "Meeting pack from books",
-    "body": "Export text + JSON meeting pack from live localStorage state — roll, loop status, disputes, loans.",
-    "method": "Method: structured pack from books · Limit: not a bank statement"
-  }
-];
   const PURPOSE_MODULE_PRESETS = {
   "stokvel": {
     "members": true,
@@ -32,63 +13,56 @@
     "cycles": true,
     "loans": true,
     "disputes": true,
-    "meeting": true,
-    "science": true
-  },
+    "meeting": true
+      },
   "household": {
     "members": true,
     "ledger": true,
     "cycles": false,
     "loans": false,
     "disputes": false,
-    "meeting": true,
-    "science": true
-  },
+    "meeting": true
+      },
   "farm": {
     "members": true,
     "ledger": true,
     "cycles": true,
     "loans": true,
     "disputes": true,
-    "meeting": true,
-    "science": true
-  },
+    "meeting": true
+      },
   "trade": {
     "members": true,
     "ledger": true,
     "cycles": true,
     "loans": false,
     "disputes": true,
-    "meeting": true,
-    "science": true
-  },
+    "meeting": true
+      },
   "rentals": {
     "members": true,
     "ledger": true,
     "cycles": true,
     "loans": false,
     "disputes": true,
-    "meeting": true,
-    "science": true
-  },
+    "meeting": true
+      },
   "flood": {
     "members": true,
     "ledger": false,
     "cycles": false,
     "loans": false,
     "disputes": false,
-    "meeting": true,
-    "science": true
-  },
+    "meeting": true
+      },
   "decisions": {
     "members": true,
     "ledger": true,
     "cycles": true,
     "loans": false,
     "disputes": true,
-    "meeting": true,
-    "science": true
-  }
+    "meeting": true
+      }
 };
 
   const TZ = "Africa/Johannesburg";
@@ -163,7 +137,6 @@
 
   const DEFAULT_MODULES = {
     members: true, ledger: true, cycles: true, loans: true, disputes: true, meeting: true,
-    science: true,
   };
 
   function seed() {
@@ -701,7 +674,6 @@
       { id: "loans", mod: "loans", icon: "💸", title: "Loans / advances", meta: "Log only · not NCR" },
       { id: "disputes", mod: "disputes", icon: "⚠", title: "Disputes", meta: "Open items" },
       { id: "meeting", mod: "meeting", icon: "📋", title: "Meeting pack", meta: "Text + JSON from books" },
-      { id: "science", mod: "science", icon: "🔬", title: "Science Desk", meta: "Weekly tips · methods" },
       { id: "settings", mod: null, icon: "⚙", title: "Settings", meta: "Modules · processes" },
     ];
     $("#more-grid").innerHTML = items.filter((i) => !i.mod || state.modules[i.mod]).map((i) => `
@@ -753,7 +725,7 @@
     const ps = document.getElementById("profile-summary");
     if (ps && state.profile) ps.textContent = (state.profile.city || "—") + " · " + (state.profile.purpose || "—");
 
-    const labels = { members: "Members", ledger: "Ledger / period", cycles: "Cycles / payout", loans: "Loans / advances", disputes: "Disputes", meeting: "Meeting pack", science: "Science Desk"
+    const labels = { members: "Members", ledger: "Ledger / period", cycles: "Cycles / payout", loans: "Loans / advances", disputes: "Disputes", meeting: "Meeting pack"
     };
     $("#module-toggles").innerHTML = Object.keys(DEFAULT_MODULES).map((k) => `
       <label class="toggle-row">
@@ -785,7 +757,6 @@
 
   function render() {
     renderNavVisibility();
-    if (currentView === "science") renderScience();
     renderToday();
     if (state.modules.members) renderMembers();
     if (state.modules.ledger) renderLedger();
@@ -1164,13 +1135,6 @@
 
 
   /* PLATFORM_BAR_2026_09_11 helpers */
-  function renderScience() {
-    const root = document.getElementById("science-tips");
-    if (!root) return;
-    root.innerHTML = SCIENCE_TIPS.map((t) =>
-      '<div class="science-tip"><h4>' + esc(t.h) + '</h4><p>' + esc(t.body) + '</p><div class="method">' + esc(t.method) + '</div></div>'
-    ).join("");
-  }
 
   function applyPurposeModules(purpose) {
     const preset = PURPOSE_MODULE_PRESETS[purpose];

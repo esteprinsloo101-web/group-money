@@ -23,7 +23,6 @@ Shared DNA with [Life Desk](https://esteprinsloo101-web.github.io/life-desk/) an
 | **Loans / advances** | Log only (not credit) |
 | **Disputes** | Open items |
 | **Meeting pack** | Structured text + JSON from live books |
-| **Science Desk** | Weekly improve tips (methods + limits) |
 | **Settings** | Modules · quiet hours · notifications · export/import |
 
 ## Process types (ProcessRunner — not checklists)
@@ -60,7 +59,7 @@ In **Settings → Backup**:
 
 ## Related download
 
-This app is the **live books demo**. Printable Stokvel OS pack:  
+This app is the **live books demo**. Printable Stokvel OS pack: 
 https://stofficial.gumroad.com/l/ydbgne
 
 ## Open locally
@@ -83,6 +82,6 @@ Demo / sample data only. **NOT** a bank / NCR credit provider / financial or leg
 
 ## Update 2026-09-11
 
-Platform bar: Science Desk, elderly UI, location+purpose onboarding.
+Platform bar: elderly UI, location+purpose onboarding.
 
 **feat/pwa-reminders-export:** PWA manifest + service worker shell cache, install affordance, reminders v1 (notifications + quiet hours + post-Done schedule), JSON export/import backup, stronger attest → period_close → payout Approve loops, meeting pack text/JSON from live books.
