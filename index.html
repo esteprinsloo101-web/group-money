@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0b1220" />
-  <meta name="description" content="Group Money — SA stokvel/burial/choir shared ledger demo. Not a bank. Sample data only." />
+  <meta name="description" content="Group Money — free try of the live SA stokvel/burial/choir shared ledger. Buy unlock on Gumroad. Not a bank. Sample data only." />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Group Money" />
@@ -25,10 +25,19 @@
         </div>
       </div>
       <div class="header-actions">
-        <button type="button" class="icon-btn" id="btn-reset" title="Reset demo" aria-label="Reset demo">↺</button>
+        <button type="button" class="icon-btn" id="btn-reset" title="Reset sample data" aria-label="Reset sample data">↺</button>
         <button type="button" class="icon-btn" id="btn-info" title="About" aria-label="About">ℹ</button>
       </div>
     </header>
+
+    <div class="live-cta" role="region" aria-label="Free try · Buy live unlock on Gumroad">
+      <div class="live-cta-body">
+        <strong>Free try · Buy live unlock on Gumroad</strong>
+        <span>Group Money OS · R149</span>
+      </div>
+      <a class="btn btn-primary btn-sm" href="https://stofficial.gumroad.com/l/atvgzr" target="_blank" rel="noopener noreferrer">Buy R149 ↗</a>
+      <p class="live-cta-foot">Also: <a href="https://stofficial.gumroad.com/l/ydbgne" target="_blank" rel="noopener noreferrer">Stokvel OS R99</a></p>
+    </div>
 
     <div class="install-banner hidden" id="install-banner" role="region" aria-label="Install app">
       <div class="install-banner-body">
@@ -52,15 +61,15 @@
         </div>
 
         <div class="cta-card">
-          <h3>Related pack</h3>
-          <p>This app is the <strong>live books demo</strong>. For printable stokvel OS templates, see the related download on Gumroad.</p>
-          <a class="btn btn-primary btn-block" href="https://stofficial.gumroad.com/l/ydbgne" target="_blank" rel="noopener noreferrer">Stokvel OS pack ↗</a>
+          <h3>Live unlock</h3>
+          <p>This page is a <strong>free try</strong> of the live Group Money OS. Buy the unlock pack on Gumroad. Printable Stokvel OS stays the primary meeting pack.</p>
+          <a class="btn btn-primary btn-block" href="https://stofficial.gumroad.com/l/atvgzr" target="_blank" rel="noopener noreferrer">Buy Group Money OS R149 ↗</a>
         </div>
 
         <div class="grid grid-2 mb-12">
           <div class="card kpi">
             <div class="stat-value teal" id="kpi-pot">R0</div>
-            <div class="stat-label">Pot (demo)</div>
+            <div class="stat-label">Pot (sample)</div>
           </div>
           <div class="card kpi">
             <div class="stat-value amber" id="kpi-late">0</div>
@@ -207,9 +216,10 @@
           <div id="history-list-full"></div>
         </div>
         <div class="card mb-12">
-          <div class="card-head"><h3>Related download</h3></div>
-          <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Live books are in this app. Printable Stokvel OS pack:</p>
-          <a class="btn btn-ghost btn-block" href="https://stofficial.gumroad.com/l/ydbgne" target="_blank" rel="noopener noreferrer">Open Gumroad pack ↗</a>
+          <div class="card-head"><h3>Live unlock</h3></div>
+          <p style="font-size:12px;color:var(--muted);margin-bottom:10px">Free try here. Buy the live Group Money OS unlock, or the printable Stokvel OS meeting pack:</p>
+          <a class="btn btn-primary btn-block" href="https://stofficial.gumroad.com/l/atvgzr" target="_blank" rel="noopener noreferrer">Buy Group Money OS R149 ↗</a>
+          <a class="btn btn-ghost btn-block" href="https://stofficial.gumroad.com/l/ydbgne" target="_blank" rel="noopener noreferrer" style="margin-top:8px">Stokvel OS R99 ↗</a>
         </div>
         <div class="card mb-12">
           <div class="card-head"><h3>Reminders</h3><span class="badge teal">v1</span></div>
@@ -247,8 +257,8 @@
         </div>
 
         <div class="card">
-          <div class="card-head"><h3>Demo</h3></div>
-          <button type="button" class="btn btn-danger btn-block" id="btn-reset-2">Reset all demo data</button>
+          <div class="card-head"><h3>Sample data</h3></div>
+          <button type="button" class="btn btn-danger btn-block" id="btn-reset-2">Reset all sample data</button>
         </div>
         <p class="disclaimer">localStorage key group-money-v4 · NOT a bank · NOT financial or legal advice · Installable PWA.</p>
       </section>

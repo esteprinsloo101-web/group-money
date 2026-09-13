@@ -1192,12 +1192,12 @@
 
 
   function resetDemo() {
-    if (!confirm("Reset all Group Money demo data?")) return;
+    if (!confirm("Reset all Group Money sample data?")) return;
     Object.keys(reminderTimers).forEach(clearReminderTimer);
     state = seed(); save(); showView("today");
     updateInstallBanner();
     rescheduleAllReminders();
-    toast("Demo reset");
+    toast("Sample data reset");
   }
 
   document.getElementById("bottom-nav").addEventListener("click", (e) => {
@@ -1214,10 +1214,10 @@
   $("#btn-reset").addEventListener("click", resetDemo);
   $("#btn-reset-2").addEventListener("click", resetDemo);
   $("#btn-info").addEventListener("click", () => openModal("About Group Money",
-    `<p><strong>Group Money</strong> is a mobile-first Faceless Plain Desk demo of a shared group ledger for SA stokvels, burial societies and choirs.</p>
+    `<p><strong>Group Money</strong> is a free try of the live Gumroad shared group ledger for SA stokvels, burial societies and choirs.</p>
      <p>Multi-member feel on a <strong>single device</strong>. ProcessRunner loop: <strong>attest → period close → payout Approve</strong>.</p>
      <p>Sample: Kopano Stokvel, Bloemfontein. Installable PWA · JSON backup in Settings.</p>
-     <p style="font-size:12px;color:var(--muted)">NOT a bank · NOT an NCR credit provider · NOT financial or legal advice. Related printable pack: <a href="${GUMROAD}" target="_blank" rel="noopener">Stokvel OS on Gumroad</a>.</p>`));
+     <p style="font-size:12px;color:var(--muted)">NOT a bank · NOT an NCR credit provider · NOT financial or legal advice. Buy live unlock: <a href="https://stofficial.gumroad.com/l/atvgzr" target="_blank" rel="noopener">Group Money OS R149</a>. Primary meeting pack: <a href="${GUMROAD}" target="_blank" rel="noopener">Stokvel OS R99</a>.</p>`));
   $("#modal-close").addEventListener("click", closeModal);
   $("#modal").addEventListener("click", (e) => { if (e.target.id === "modal") closeModal(); });
   $("#pr-close").addEventListener("click", closeProcessRunner);
