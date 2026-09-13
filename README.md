@@ -1,16 +1,19 @@
 # Group Money
 
-**Group Money** is a polished, mobile-first static web demo of a South African **shared group money OS** (stokvel / burial society / choir).
+**Group Money** is a mobile-first **free try of the live Gumroad** South African **shared group money OS** (stokvel / burial society / choir).
 
-Sample group: **Kopano Stokvel · Bloemfontein**. Demo / sample ZAR data on a **single device**. **NOT** a bank. **NOT** an NCR credit provider. **NOT** financial or legal advice. Faceless Plain Desk.
+Sample group: **Kopano Stokvel · Bloemfontein**. Sample ZAR data on a **single device**. **NOT** a bank. **NOT** an NCR credit provider. **NOT** financial or legal advice. Faceless Plain Desk.
+
+**Buy live unlock (Gumroad):** [Group Money OS — R149](https://stofficial.gumroad.com/l/atvgzr)  
+Also: [Stokvel OS — R99](https://stofficial.gumroad.com/l/ydbgne) (primary printable meeting pack).
 
 Shared DNA with [Life Desk](https://esteprinsloo101-web.github.io/life-desk/) and [Farm Desk](https://esteprinsloo101-web.github.io/farm-desk/): the app **reminds, prepares, closes books**; humans **Approve** payouts. Installable as a **PWA** (Add to Home Screen) with an offline-ish shell cache.
 
-## Live URL
+## Free try (live)
 
 **https://esteprinsloo101-web.github.io/group-money/**
 
-(GitHub Pages from `main`; allow a minute after push for deploy.)
+GitHub Pages from `main` (allow a minute after merge for deploy). Paid unlock: [Gumroad R149](https://stofficial.gumroad.com/l/atvgzr).
 
 ## Modules
 
@@ -55,12 +58,12 @@ In **Settings → Backup**:
 
 ## Meeting pack
 
-**More → Meeting pack** builds agenda, roll, loop status, ledger slice, payout sheet, disputes and loans from **live localStorage books** (text preview + JSON download). Demo only — not a bank statement.
+**More → Meeting pack** builds agenda, roll, loop status, ledger slice, payout sheet, disputes and loans from **live localStorage books** (text preview + JSON download). Sample books only — not a bank statement.
 
-## Related download
+## Buy live unlock
 
-This app is the **live books demo**. Printable Stokvel OS pack: 
-https://stofficial.gumroad.com/l/ydbgne
+- **This product:** [Group Money OS — R149](https://stofficial.gumroad.com/l/atvgzr)
+- **Primary meeting pack:** [Stokvel OS — R99](https://stofficial.gumroad.com/l/ydbgne)
 
 ## Open locally
 
@@ -78,7 +81,7 @@ Storage key: `group-money-v4`
 
 ## Disclaimer
 
-Demo / sample data only. **NOT** a bank / NCR credit provider / financial or legal advice. Does not move money or issue statements that replace your bank. Faceless Plain Desk.
+Free try / sample data only. **NOT** a bank / NCR credit provider / financial or legal advice. Does not move money or issue statements that replace your bank. Faceless Plain Desk.
 
 ## Update 2026-09-11
 

@@ -940,3 +940,39 @@ button.reminder-item:last-child { border-bottom: none; padding-bottom: 0; }
   opacity: 0.72;
 }
 .loop-step.blocked .ls-state { color: var(--muted); }
+
+/* ── Live product CTA 2026-09-13 ── */
+.live-cta {
+  position: sticky;
+  top: var(--header-h);
+  z-index: 35;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0 12px 10px;
+  padding: 12px 14px;
+  background: linear-gradient(135deg, rgba(20,184,166,0.22), rgba(245,158,11,0.10));
+  border: 1px solid var(--accent);
+  border-radius: 14px;
+}
+.live-cta-body {
+  flex: 1 1 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 14px;
+  color: var(--muted);
+}
+.live-cta-body strong {
+  font-size: 16px;
+  color: var(--text);
+  font-weight: 700;
+}
+.live-cta a.btn { white-space: nowrap; }
+.live-cta-foot {
+  flex: 1 1 100%;
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+}
