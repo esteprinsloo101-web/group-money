@@ -1,5 +1,5 @@
 /* Group Money — shell cache for offline-ish PWA */
-const CACHE = "group-money-shell-v2";
+const CACHE = "group-money-shell-v3";
 const SHELL = [
   "./",
   "./index.html",
